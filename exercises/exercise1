@@ -1,0 +1,229 @@
+Loading development environment (Rails 4.0.0)
+2.0.0p247 :001 > b = Beer.all.first
+  Beer Load (0.1ms)  SELECT "beers".* FROM "beers" ORDER BY "beers"."id" ASC LIMIT 1
+ => #<Beer id: 1, name: "Iso 3", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">
+2.0.0p247 :002 > b.ratings.create :score => 10
+   (0.1ms)  begin transaction
+  SQL (2.0ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 1], ["created_at", Tue, 22 Oct 2013 13:35:31 UTC +00:00], ["score", 10], ["updated_at", Tue, 22 Oct 2013 13:35:31 UTC +00:00]]
+   (3.2ms)  commit transaction
+ => #<Rating id: 1, score: 10, beer_id: 1, created_at: "2013-10-22 13:35:31", updated_at: "2013-10-22 13:35:31">
+2.0.0p247 :003 > b.ratings.create :score => 21
+   (0.2ms)  begin transaction
+  SQL (0.7ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 1], ["created_at", Tue, 22 Oct 2013 13:35:33 UTC +00:00], ["score", 21], ["updated_at", Tue, 22 Oct 2013 13:35:33 UTC +00:00]]
+   (2.6ms)  commit transaction
+ => #<Rating id: 2, score: 21, beer_id: 1, created_at: "2013-10-22 13:35:33", updated_at: "2013-10-22 13:35:33">
+2.0.0p247 :004 > b.ratings.create :score => 17
+   (0.2ms)  begin transaction
+  SQL (0.7ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 1], ["created_at", Tue, 22 Oct 2013 13:35:37 UTC +00:00], ["score", 17], ["updated_at", Tue, 22 Oct 2013 13:35:37 UTC +00:00]]
+   (2.5ms)  commit transaction
+ => #<Rating id: 3, score: 17, beer_id: 1, created_at: "2013-10-22 13:35:37", updated_at: "2013-10-22 13:35:37">
+2.0.0p247 :005 > b.ratings
+  Rating Load (0.6ms)  SELECT "ratings".* FROM "ratings" WHERE "ratings"."beer_id" = ?  [["beer_id", 1]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Rating id: 1, score: 10, beer_id: 1, created_at: "2013-10-22 13:35:31", updated_at: "2013-10-22 13:35:31">, #<Rating id: 2, score: 21, beer_id: 1, created_at: "2013-10-22 13:35:33", updated_at: "2013-10-22 13:35:33">, #<Rating id: 3, score: 17, beer_id: 1, created_at: "2013-10-22 13:35:37", updated_at: "2013-10-22 13:35:37">]>
+2.0.0p247 :006 > b= Brewery.create :name => "Brewdog", :year => 2007
+   (0.1ms)  begin transaction
+  SQL (0.3ms)  INSERT INTO "breweries" ("created_at", "name", "updated_at", "year") VALUES (?, ?, ?, ?)  [["created_at", Tue, 22 Oct 2013 13:36:35 UTC +00:00], ["name", "Brewdog"], ["updated_at", Tue, 22 Oct 2013 13:36:35 UTC +00:00], ["year", 2007]]
+   (3.1ms)  commit transaction
+ => #<Brewery id: 5, name: "Brewdog", year: 2007, created_at: "2013-10-22 13:36:35", updated_at: "2013-10-22 13:36:35">
+2.0.0p247 :007 > b.beers.create :name => "Punk IPA", :style => "IPA"
+   (0.2ms)  begin transaction
+  SQL (1.2ms)  INSERT INTO "beers" ("brewery_id", "created_at", "name", "style", "updated_at") VALUES (?, ?, ?, ?, ?)  [["brewery_id", 5], ["created_at", Tue, 22 Oct 2013 13:37:00 UTC +00:00], ["name", "Punk IPA"], ["style", "IPA"], ["updated_at", Tue, 22 Oct 2013 13:37:00 UTC +00:00]]
+   (3.4ms)  commit transaction
+ => #<Beer id: 13, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: "2013-10-22 13:37:00", updated_at: "2013-10-22 13:37:00">
+2.0.0p247 :008 > b.beers.create :name => "Nanny State", :style => "lowalcohol"
+   (0.3ms)  begin transaction
+  SQL (0.3ms)  INSERT INTO "beers" ("brewery_id", "created_at", "name", "style", "updated_at") VALUES (?, ?, ?, ?, ?)  [["brewery_id", 5], ["created_at", Tue, 22 Oct 2013 13:37:18 UTC +00:00], ["name", "Nanny State"], ["style", "lowalcohol"], ["updated_at", Tue, 22 Oct 2013 13:37:18 UTC +00:00]]
+   (2.7ms)  commit transaction
+ => #<Beer id: 14, name: "Nanny State", style: "lowalcohol", brewery_id: 5, created_at: "2013-10-22 13:37:18", updated_at: "2013-10-22 13:37:18">
+2.0.0p247 :009 > b1 = Beers.find_where :name => "Punk IPA"
+NameError: uninitialized constant Beers
+	from (irb):9
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :010 > b1 = Beer.find_where :name => "Punk IPA"
+NoMethodError: undefined method `find_where' for #<Class:0x000000056b1980>
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/dynamic_matchers.rb:22:in `method_missing'
+	from (irb):10
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :011 > b1 = Beer.where :name => "Punk IPA"
+  Beer Load (0.6ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Punk IPA'
+ => #<ActiveRecord::Relation [#<Beer id: 13, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: "2013-10-22 13:37:00", updated_at: "2013-10-22 13:37:00">]>
+2.0.0p247 :012 > b2 = Beer.where :name => "Nanny State"
+  Beer Load (0.5ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Nanny State'
+ => #<ActiveRecord::Relation [#<Beer id: 14, name: "Nanny State", style: "lowalcohol", brewery_id: 5, created_at: "2013-10-22 13:37:18", updated_at: "2013-10-22 13:37:18">]>
+2.0.0p247 :013 > b1.ratings.create :score => 40
+NoMethodError: undefined method `ratings' for #<ActiveRecord::Relation::ActiveRecord_Relation_Beer:0x000000055381a8>
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:121:in `method_missing'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:68:in `method_missing'
+	from (irb):13
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :014 > b1.ratings.create :score => 40
+NoMethodError: undefined method `ratings' for #<ActiveRecord::Relation::ActiveRecord_Relation_Beer:0x000000055381a8>
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:121:in `method_missing'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:68:in `method_missing'
+	from (irb):14
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :015 > b.ratings
+NoMethodError: undefined method `ratings' for #<Brewery:0x00000004f5eea8>
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activemodel-4.0.0/lib/active_model/attribute_methods.rb:436:in `method_missing'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/attribute_methods.rb:131:in `method_missing'
+	from (irb):15
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :016 > b1.ratings
+NoMethodError: undefined method `ratings' for #<ActiveRecord::Relation::ActiveRecord_Relation_Beer:0x000000055381a8>
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:121:in `method_missing'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:68:in `method_missing'
+	from (irb):16
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :017 > Beer
+ => Beer(id: integer, name: string, style: string, brewery_id: integer, created_at: datetime, updated_at: datetime)
+2.0.0p247 :018 > Rating
+ => Rating(id: integer, score: integer, beer_id: integer, created_at: datetime, updated_at: datetime)
+2.0.0p247 :019 > reload!
+Reloading...
+ => true
+2.0.0p247 :020 > b2 = Beer.where :name => "Nanny State"
+  Beer Load (0.4ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Nanny State'
+ => #<ActiveRecord::Relation [#<Beer id: 14, name: "Nanny State", style: "lowalcohol", brewery_id: 5, created_at: "2013-10-22 13:37:18", updated_at: "2013-10-22 13:37:18">]>
+2.0.0p247 :021 > b2
+ => #<ActiveRecord::Relation [#<Beer id: 14, name: "Nanny State", style: "lowalcohol", brewery_id: 5, created_at: "2013-10-22 13:37:18", updated_at: "2013-10-22 13:37:18">]>
+2.0.0p247 :022 > br.ratings
+NameError: undefined local variable or method `br' for main:Object
+	from (irb):22
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :023 > b2.ratings
+NoMethodError: undefined method `ratings' for #<ActiveRecord::Relation::ActiveRecord_Relation_Beer:0x000000058f03b8>
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:121:in `method_missing'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:68:in `method_missing'
+	from (irb):23
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :024 > b2.rating
+NoMethodError: undefined method `rating' for #<ActiveRecord::Relation::ActiveRecord_Relation_Beer:0x000000058f03b8>
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:121:in `method_missing'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/delegation.rb:68:in `method_missing'
+	from (irb):24
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :025 > Rating.find
+ActiveRecord::RecordNotFound: Couldn't find Rating without an ID
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/finder_methods.rb:266:in `find_with_ids'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/finder_methods.rb:35:in `find'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-deprecated_finders-1.0.3/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/querying.rb:3:in `find'
+	from (irb):25
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :026 > Rating.find_all
+NoMethodError: undefined method `find_all' for #<Class:0x00000005ba7b38>
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/dynamic_matchers.rb:22:in `method_missing'
+	from (irb):26
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :027 > Rating.all
+  Rating Load (0.5ms)  SELECT "ratings".* FROM "ratings"
+ => #<ActiveRecord::Relation [#<Rating id: 1, score: 10, beer_id: 1, created_at: "2013-10-22 13:35:31", updated_at: "2013-10-22 13:35:31">, #<Rating id: 2, score: 21, beer_id: 1, created_at: "2013-10-22 13:35:33", updated_at: "2013-10-22 13:35:33">, #<Rating id: 3, score: 17, beer_id: 1, created_at: "2013-10-22 13:35:37", updated_at: "2013-10-22 13:35:37">]>
+2.0.0p247 :028 > Beer.find.first
+ActiveRecord::RecordNotFound: Couldn't find Beer without an ID
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/finder_methods.rb:266:in `find_with_ids'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/relation/finder_methods.rb:35:in `find'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-deprecated_finders-1.0.3/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/activerecord-4.0.0/lib/active_record/querying.rb:3:in `find'
+	from (irb):28
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:90:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands/console.rb:9:in `start'
+	from /home/hhaapala/.rvm/gems/ruby-2.0.0-p247/gems/railties-4.0.0/lib/rails/commands.rb:64:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'
+2.0.0p247 :029 > Beer.all.first
+  Beer Load (0.5ms)  SELECT "beers".* FROM "beers" ORDER BY "beers"."id" ASC LIMIT 1
+ => #<Beer id: 1, name: "Iso 3", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">
+2.0.0p247 :030 > b = Beer.all.first
+  Beer Load (0.5ms)  SELECT "beers".* FROM "beers" ORDER BY "beers"."id" ASC LIMIT 1
+ => #<Beer id: 1, name: "Iso 3", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">
+2.0.0p247 :031 > b.ratings.create :score => 40
+   (0.2ms)  begin transaction
+  SQL (1.0ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 1], ["created_at", Tue, 22 Oct 2013 13:48:17 UTC +00:00], ["score", 40], ["updated_at", Tue, 22 Oct 2013 13:48:17 UTC +00:00]]
+   (3.1ms)  commit transaction
+ => #<Rating id: 4, score: 40, beer_id: 1, created_at: "2013-10-22 13:48:17", updated_at: "2013-10-22 13:48:17">
+2.0.0p247 :032 > b1
+ => #<ActiveRecord::Relation [#<Beer id: 13, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: "2013-10-22 13:37:00", updated_at: "2013-10-22 13:37:00">]>
+2.0.0p247 :033 > b
+ => #<Beer id: 1, name: "Iso 3", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">
+2.0.0p247 :034 > b1 = b1.first
+ => #<Beer id: 13, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: "2013-10-22 13:37:00", updated_at: "2013-10-22 13:37:00">
+2.0.0p247 :035 > b1.ratings.create :score => 40
+   (0.2ms)  begin transaction
+  SQL (0.8ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 13], ["created_at", Tue, 22 Oct 2013 13:49:20 UTC +00:00], ["score", 40], ["updated_at", Tue, 22 Oct 2013 13:49:20 UTC +00:00]]
+   (3.3ms)  commit transaction
+ => #<Rating id: 5, score: 40, beer_id: 13, created_at: "2013-10-22 13:49:20", updated_at: "2013-10-22 13:49:20">
+2.0.0p247 :036 > b1.ratings.create :score => 10
+   (0.3ms)  begin transaction
+  SQL (0.7ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 13], ["created_at", Tue, 22 Oct 2013 13:49:26 UTC +00:00], ["score", 10], ["updated_at", Tue, 22 Oct 2013 13:49:26 UTC +00:00]]
+   (2.6ms)  commit transaction
+ => #<Rating id: 6, score: 10, beer_id: 13, created_at: "2013-10-22 13:49:26", updated_at: "2013-10-22 13:49:26">
+2.0.0p247 :037 > b1.ratings.create :score => 20
+   (0.3ms)  begin transaction
+  SQL (0.7ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 13], ["created_at", Tue, 22 Oct 2013 13:49:28 UTC +00:00], ["score", 20], ["updated_at", Tue, 22 Oct 2013 13:49:28 UTC +00:00]]
+   (2.6ms)  commit transaction
+ => #<Rating id: 7, score: 20, beer_id: 13, created_at: "2013-10-22 13:49:28", updated_at: "2013-10-22 13:49:28">
+2.0.0p247 :038 > b2 = b2.first
+ => #<Beer id: 14, name: "Nanny State", style: "lowalcohol", brewery_id: 5, created_at: "2013-10-22 13:37:18", updated_at: "2013-10-22 13:37:18">
+2.0.0p247 :039 > b2.ratings.create :score => 11
+   (0.2ms)  begin transaction
+  SQL (0.8ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 14], ["created_at", Tue, 22 Oct 2013 13:49:50 UTC +00:00], ["score", 11], ["updated_at", Tue, 22 Oct 2013 13:49:50 UTC +00:00]]
+   (2.3ms)  commit transaction
+ => #<Rating id: 8, score: 11, beer_id: 14, created_at: "2013-10-22 13:49:50", updated_at: "2013-10-22 13:49:50">
+2.0.0p247 :040 > b2.ratings.create :score => 22
+   (0.2ms)  begin transaction
+  SQL (0.7ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated_at") VALUES (?, ?, ?, ?)  [["beer_id", 14], ["created_at", Tue, 22 Oct 2013 13:49:51 UTC +00:00], ["score", 22], ["updated_at", Tue, 22 Oct 2013 13:49:51 UTC +00:00]]
+   (2.5ms)  commit transaction
+ => #<Rating id: 9, score: 22, beer_id: 14, created_at: "2013-10-22 13:49:51", updated_at: "2013-10-22 13:49:51">
+2.0.0p247 :041 > Beer
+ => Beer(id: integer, name: string, style: string, brewery_id: integer, created_at: datetime, updated_at: datetime)
+2.0.0p247 :042 > Beer.all
+  Beer Load (0.7ms)  SELECT "beers".* FROM "beers"
+ => #<ActiveRecord::Relation [#<Beer id: 1, name: "Iso 3", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">, #<Beer id: 2, name: "Karhu", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">, #<Beer id: 3, name: "Tuplahumala", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">, #<Beer id: 4, name: "Huvila Pale Ale", style: "Pale Ale", brewery_id: 2, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">, #<Beer id: 5, name: "X Porter", style: "Porter", brewery_id: 2, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">, #<Beer id: 6, name: "Hefezeizen", style: "Weizen", brewery_id: 3, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">, #<Beer id: 7, name: "Helles", style: "Lager", brewery_id: 3, created_at: "2013-10-21 18:31:53", updated_at: "2013-10-21 18:31:53">, #<Beer id: 8, name: "Lite", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:33:48", updated_at: "2013-10-21 18:33:48">, #<Beer id: 9, name: "IVB", style: "Lager", brewery_id: 1, created_at: "2013-10-21 18:35:10", updated_at: "2013-10-21 18:35:10">, #<Beer id: 13, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: "2013-10-22 13:37:00", updated_at: "2013-10-22 13:37:00">, ...]>
+2.0.0p247 :043 > Rating.all
+  Rating Load (0.5ms)  SELECT "ratings".* FROM "ratings"
+ => #<ActiveRecord::Relation [#<Rating id: 1, score: 10, beer_id: 1, created_at: "2013-10-22 13:35:31", updated_at: "2013-10-22 13:35:31">, #<Rating id: 2, score: 21, beer_id: 1, created_at: "2013-10-22 13:35:33", updated_at: "2013-10-22 13:35:33">, #<Rating id: 3, score: 17, beer_id: 1, created_at: "2013-10-22 13:35:37", updated_at: "2013-10-22 13:35:37">, #<Rating id: 4, score: 40, beer_id: 1, created_at: "2013-10-22 13:48:17", updated_at: "2013-10-22 13:48:17">, #<Rating id: 5, score: 40, beer_id: 13, created_at: "2013-10-22 13:49:20", updated_at: "2013-10-22 13:49:20">, #<Rating id: 6, score: 10, beer_id: 13, created_at: "2013-10-22 13:49:26", updated_at: "2013-10-22 13:49:26">, #<Rating id: 7, score: 20, beer_id: 13, created_at: "2013-10-22 13:49:28", updated_at: "2013-10-22 13:49:28">, #<Rating id: 8, score: 11, beer_id: 14, created_at: "2013-10-22 13:49:50", updated_at: "2013-10-22 13:49:50">, #<Rating id: 9, score: 22, beer_id: 14, created_at: "2013-10-22 13:49:51", updated_at: "2013-10-22 13:49:51">]>
+2.0.0p247 :044 >
