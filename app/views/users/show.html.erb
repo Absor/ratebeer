@@ -37,6 +37,12 @@
 <% end %>
 </p>
 
+<p>
+  <% if not @user.ratings.empty? %>
+    Favorite beer style is <%= @user.favorite_style %> and favorite brewery is <%= @user.favorite_brewery %>.
+  <% end %>
+</p>
+
 <% if currently_signed_in? @user %>
     <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
     <%= link_to 'Edit', edit_user_path(@user) %>

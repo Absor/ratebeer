@@ -8,11 +8,19 @@ gem 'rails', '4.0.0'
 group :development, :test do
   gem 'sqlite3'
   gem 'debugger'
+  gem 'rspec-rails', '~> 2.0'
 end
 
 group :production do
   gem 'pg'
   gem 'rails_12factor'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'simplecov', :require => false
 end
 
 # Use SCSS for stylesheets

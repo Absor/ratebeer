@@ -16,3 +16,6 @@
 /tmp
 
 .idea
+
+# Ignore generated coverage reports
+coverage
