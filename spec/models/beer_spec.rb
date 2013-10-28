@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Beer do
   it 'is not created without a name' do
-    beer = Beer.create :name => nil, :style => "Lager"
+    style = Style.create :name => "Lager"
+    beer = Beer.create :name => nil, :style => style
 
     expect(beer.valid?).to be false
     expect(Beer.count).to be 0

@@ -5,6 +5,7 @@ describe "Beer" do
 
   let!(:user) { FactoryGirl.create :user }
   let!(:brewery) { FactoryGirl.create :brewery, :name => "Koff" }
+  let!(:style){FactoryGirl.create :style, :name => "Pale ale"}
 
   before :each do
     sign_in 'Pekka', 'foobar1'
@@ -14,7 +15,7 @@ describe "Beer" do
     visit new_beer_path
     fill_in('beer[name]', :with => 'Ale 1')
     select(brewery.name, :from => 'beer[brewery_id]')
-    select("Pale ale", :from => 'beer[style]')
+    select(style.name, :from => 'beer[style_id]')
 
     expect{
       click_button "Create Beer"

@@ -6,8 +6,10 @@ describe "User's page" do
   let!(:user) { FactoryGirl.create :user }
   let!(:brewery1) { FactoryGirl.create :brewery, :name => "Koff" }
   let!(:brewery2) { FactoryGirl.create :brewery, :name => "Toinen" }
-  let!(:beer1) { FactoryGirl.create :beer, :style => "Pale ale", :brewery => brewery1 }
-  let!(:beer2) { FactoryGirl.create :beer, :style => "Lager", :brewery => brewery2 }
+  let!(:style1) {FactoryGirl.create :style, :name => "Pale ale"}
+  let!(:style2) {FactoryGirl.create :style, :name => "Lager"}
+  let!(:beer1) { FactoryGirl.create :beer, :style => style1, :brewery => brewery1 }
+  let!(:beer2) { FactoryGirl.create :beer, :style => style2, :brewery => brewery2 }
 
   before :each do
     sign_in 'Pekka', 'foobar1'

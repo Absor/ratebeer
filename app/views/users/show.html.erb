@@ -39,7 +39,7 @@
 
 <p>
   <% if not @user.ratings.empty? %>
-    Favorite beer style is <%= @user.favorite_style %> and favorite brewery is <%= @user.favorite_brewery %>.
+    Favorite beer style is <%= @user.favorite_style.name %> and favorite brewery is <%= @user.favorite_brewery %>.
   <% end %>
 </p>
 
