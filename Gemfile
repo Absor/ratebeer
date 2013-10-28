@@ -21,6 +21,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', :require => false
+  gem 'webmock'
 end
 
 # Use SCSS for stylesheets
@@ -51,6 +52,10 @@ end
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
+
+gem 'httparty'
+
+gem "rails-settings-cached", "0.3.1"
 
 # Use unicorn as the app server
 # gem 'unicorn'

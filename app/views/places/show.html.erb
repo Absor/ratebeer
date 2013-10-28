@@ -1,0 +1,27 @@
+<h1>
+    <%= @place.name %>
+</h1>
+
+<p>
+  <%= @place.street %>
+  <br>
+  <%= "#{@place.zip} #{@place.city}" %>
+</p>
+
+<p>
+  <strong>Scores</strong>
+  <br>
+  Overall: <%= @scores["overall"] %>
+  <br>
+  Selection: <%= @scores["selection"] %>
+  <br>
+  Service: <%= @scores["service"] %>
+  <br>
+  Atmosphere: <%= @scores["atmosphere"] %>
+  <br>
+  Food: <%= @scores["food"] %>
+  <br>
+  Review count <%= @scores["reviewcount"] %>
+</p>
+
+<iframe src="<%= @place.blogmap %>"></iframe>

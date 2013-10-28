@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @style.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @style.description %>
+</p>
+
+<p>
+<% if not @style.beers.empty? %>
+  Beers:
+    <ul>
+      <% @style.beers.each do |beer| %>
+          <li><%= link_to beer.name, beer %></li>
+      <% end %>
+    </ul>
+<% else %>
+    No beers with this style.
+<% end %>
+</p>
+
+<%= link_to 'Edit', edit_style_path(@style) %> |
