@@ -39,4 +39,9 @@ class User < ActiveRecord::Base
 
     ratings_by_brewery.sort_by{|key, value| value}.last[0].name
   end
+
+  def self.most_active(n)
+    sorted_by_ratings_in_desc_order = User.all.sort_by{ |u| -u.ratings.count }
+    return sorted_by_ratings_in_desc_order.first(n)
+  end
 end

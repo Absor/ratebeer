@@ -22,6 +22,8 @@ group :test do
   gem 'launchy'
   gem 'simplecov', :require => false
   gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner', '< 1.1.0'
 end
 
 # Use SCSS for stylesheets
@@ -56,6 +58,9 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'httparty'
 
 gem "rails-settings-cached", "0.3.1"
+
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
 
 # Use unicorn as the app server
 # gem 'unicorn'

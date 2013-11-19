@@ -1,5 +1,9 @@
 module RatingAverage
   def average_rating
-    ratings.average('score')
+    if ratings.empty?
+      0
+    else
+      ratings.average('score')
+    end
   end
 end
