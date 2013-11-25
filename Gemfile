@@ -62,6 +62,8 @@ gem "rails-settings-cached", "0.3.1"
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 
+gem 'actionpack-action_caching'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

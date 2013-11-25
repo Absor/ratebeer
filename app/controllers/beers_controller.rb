@@ -8,7 +8,8 @@ class BeersController < ApplicationController
   # GET /beers
   # GET /beers.json
   def index
-    @beers = Beer.all.sort_by{ |b| b.send(params[:order] || 'name') }
+    @order = params[:order] || 'name'
+    @beers = Beer.includes(:brewery, :style).sort_by{ |b| b.send(params[:order] || 'name') }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +42,8 @@ class BeersController < ApplicationController
   def create
     @beer = Beer.new(beer_params)
 
+    ["beers-name", "beers-brewery", "beers-style"].each{ |f| expire_fragment(f) }
+
     respond_to do |format|
       if @beer.save
         format.html { redirect_to @beer, notice: 'Beer was successfully created.' }
@@ -57,6 +60,7 @@ class BeersController < ApplicationController
   # PATCH/PUT /beers/1
   # PATCH/PUT /beers/1.json
   def update
+    ["beers-name", "beers-brewery", "beers-style"].each{ |f| expire_fragment(f) }
     respond_to do |format|
       if @beer.update(beer_params)
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
@@ -72,6 +76,8 @@ class BeersController < ApplicationController
   # DELETE /beers/1.json
   def destroy
     @beer.destroy
+    ["beers-name", "beers-brewery", "beers-style"].each{ |f| expire_fragment(f) }
+
     respond_to do |format|
       format.html { redirect_to beers_url }
       format.json { head :no_content }

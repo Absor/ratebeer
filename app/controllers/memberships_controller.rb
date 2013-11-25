@@ -1,5 +1,13 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_filter :ensure_that_signed_in
+
+  def confirm
+    membership = Membership.find(params[:id])
+    membership.update_attribute :confirmed, true
+
+    redirect_to :back, :notice => "Membership confirmed!"
+  end
 
   # GET /memberships
   # GET /memberships.json
@@ -36,7 +44,7 @@ class MembershipsController < ApplicationController
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
+        format.html { redirect_to :back, notice: 'Membership was successfully created.' }
         format.json { render action: 'show', status: :created, location: @membership }
       else
         format.html { render action: 'new' }

@@ -8,7 +8,7 @@
   <% if @user.ratings.empty? %>
       has not given any ratings!
   <% else %>
-      has given <%= pluralize(@user.ratings.count, 'rating', 'ratings') %>, average <%= @user.average_rating %>
+      has given <%= pluralize(@user.ratings.size, 'rating', 'ratings') %>, average <%= @user.average_rating %>
 
       <ul>
         <% @user.ratings.each do |rating| %>
@@ -27,13 +27,18 @@
   <% if @user.beer_clubs.empty? %>
       hasn't joined any beer clubs!
   <% else %>
-      has joined <%= pluralize(@user.beer_clubs.count, 'beer club', 'beer clubs') %>.
-
+    <strong>belongs to</strong>
     <ul>
-      <% @user.beer_clubs.each do |beer_club| %>
-          <li><%= link_to beer_club.name, beer_club %></li>
+      <% @user.confirmed_memberships.each do |ms| %>
+          <li><%= link_to ms.beer_club.name, ms.beer_club %></li>
       <% end %>
     </ul>
+      <strong>application pending for</strong>
+      <ul>
+        <% @user.unconfirmed_memberships.each do |ms| %>
+            <li><%= link_to ms.beer_club.name, ms.beer_club %></li>
+        <% end %>
+      </ul>
 <% end %>
 </p>
 

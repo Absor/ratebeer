@@ -4,13 +4,20 @@ class RatingsController < ApplicationController
   def index
     @ratings = Rating.all
 
-    @top_beers = Beer.top(3)
-    @top_breweries = Brewery.top(3)
-    @top_styles = Style.top(3)
+    Rails.cache.write("beer top 3", Beer.top(3), expires_in: 10.minutes) unless Rails.cache.exist? "beer top 3"
+    @top_beers = Rails.cache.read "beer top 3"
 
-    @most_active_users = User.most_active(3)
+    Rails.cache.write("brewery top 3", Brewery.top(3), expires_in: 10.minutes) unless Rails.cache.exist? "brewery top 3"
+    @top_breweries = Rails.cache.read "brewery top 3"
 
-    @recent_ratings = Rating.recent(5)
+    Rails.cache.write("style top 3", Style.top(3), expires_in: 10.minutes) unless Rails.cache.exist? "style top 3"
+    @top_styles = Rails.cache.read "style top 3"
+
+    Rails.cache.write("user most active top 3", User.most_active(3), expires_in: 10.minutes) unless Rails.cache.exist? "user most active top 3"
+    @most_active_users = Rails.cache.read "user most active top 3"
+
+    Rails.cache.write("recent ratings 5", Rating.recent(5), expires_in: 10.minutes) unless Rails.cache.exist? "recent ratings 5"
+    @recent_ratings = Rails.cache.read "recent ratings 5"
   end
 
   def new

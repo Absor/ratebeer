@@ -15,22 +15,32 @@
 </p>
 
 <p>
-    <% if not @beer_club.members.empty? %>
+    <% unless @beer_club.members.empty? %>
     Members:
+    <ul>
+      <% @beer_club.confirmed_memberships.each do |ms| %>
+          <li><%= link_to ms.user.username, ms.user %></li>
+      <% end %>
+    </ul>
+    <% if current_user and @beer_club.confirmed_member? current_user %>
+    Applications:
         <ul>
-          <% @beer_club.members.each do |member| %>
-          <li><%= link_to member.username, member %></li>
+          <% @beer_club.unconfirmed_memberships.each do |ms| %>
+              <li><%= link_to ms.user.username, ms.user %> <%= link_to "Confirm", confirm_membership_path(ms), :method => :post, :class => "btn" %></li>
           <% end %>
         </ul>
+    <% end %>
     <% else %>
         Club has no members.
     <% end %>
 </p>
 
+<% if current_user and not @beer_club.members.include? current_user %>
 <%= form_for(@membership) do |f| %>
     <%= f.hidden_field :beer_club_id %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit "Join club", :class => 'btn btn-primary' %>
+<% end %>
 <% end %>
 
 <%= link_to 'Edit', edit_beer_club_path(@beer_club), :class => 'btn btn-primary' if current_user %>

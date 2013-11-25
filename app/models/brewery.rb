@@ -9,8 +9,8 @@ class Brewery < ActiveRecord::Base
   has_many :beers
   has_many :ratings, :through => :beers
 
-  scope :active, where(:active => true)
-  scope :retired, where(:active => [nil, false])
+  scope :active, -> { where(:active => true) }
+  scope :retired, -> { where(:active => [nil, false]) }
 
   def year_can_not_be_in_the_future
      if not year.nil? and year >= Time.now.year

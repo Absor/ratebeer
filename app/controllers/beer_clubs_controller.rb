@@ -29,8 +29,15 @@ class BeerClubsController < ApplicationController
   def create
     @beer_club = BeerClub.new(beer_club_params)
 
+
     respond_to do |format|
       if @beer_club.save
+        # add creator to club
+        @beer_club.members << current_user
+        # confirm membership
+        ms = @beer_club.memberships.where(user: current_user).first
+        ms.confirmed = true
+        ms.save
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render action: 'show', status: :created, location: @beer_club }
       else
